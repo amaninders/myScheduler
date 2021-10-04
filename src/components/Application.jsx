@@ -1,7 +1,7 @@
-import React from "react";
-import { useState } from "react";
-import "components/Application.scss";
-import DayList from "./DayList";
+import React from "react"
+import { useState } from "react"
+import "components/Application.scss"
+import DayList from './DayList.jsx'
 
 export default function Application(props) {
 	const days = [
