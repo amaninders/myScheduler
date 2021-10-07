@@ -120,7 +120,7 @@ storiesOf("InterviewerListItem", module)
 	));
 
 
-// ==== INTERVIEWERLISTITEM ====
+// ==== INTERVIEWERLIST ====
 const interviewers = [
 	{ id: 1, name: "Sylvia Palmer", avatar: "https://i.imgur.com/LpaY82x.png" },
 	{ id: 2, name: "Tori Malcolm", avatar: "https://i.imgur.com/Nmx0Qxo.png" },
@@ -215,5 +215,21 @@ storiesOf("Appointment", module)
 			onSave={action("onSave")}
 			onCancel={action("onCancel")}
 		/>
+	))
+	.add("Appointment Empty", () => (
+		<>
+			<Appointment id={1} time="12pm" />
+   		<Appointment id="last" time="1pm" />
+		</>
+	))
+	.add("Appointment Booked", () => (
+		<>
+			<Appointment
+				id={1}
+				time="12pm"
+				interview={{ student: "Lydia Miller-Jones", interviewer }}
+			/>
+			<Appointment id="last" time="1pm" />
+		</>
 	));
 

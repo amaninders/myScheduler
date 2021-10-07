@@ -1,29 +1,41 @@
-import React from "react"
-import { useState } from "react"
-import "components/Application.scss"
+import React from "react";
 import DayList from './DayList.jsx'
+import "components/Application.scss"
+import Appointment from "./Appointment/index.jsx";
+import useApplicationData from 'hooks/useApplicationData'
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors.js";
 
 export default function Application(props) {
-	const days = [
-		{
-			id: 1,
-			name: "Monday",
-			spots: 2,
-		},
-		{
-			id: 2,
-			name: "Tuesday",
-			spots: 5,
-		},
-		{
-			id: 3,
-			name: "Wednesday",
-			spots: 0,
-		},
-	];
+	
+	const {
+		state,
+		setDay,
+		bookInterview,
+		deleteBooking
+	} = useApplicationData()
 
-	const [day, setDay] = useState('Monday');
+	console.log(state.spots)
+	const dailyAppointments = getAppointmentsForDay(state, state.day);
+	const dailyInterviewers = getInterviewersForDay(state, state.day);
+	const appointmentData = dailyAppointments.map(appointment => {
 
+		const interview = getInterview(state, appointment.interview);
+		return (
+			<Appointment 
+				{...appointment}
+				key={appointment.id} 
+				interview={interview}
+				interviewers={dailyInterviewers}
+				bookInterview={bookInterview}
+				deleteBooking={deleteBooking}
+		  />
+		)
+	})
+
+	// ADDS CLOSING TO THE LIST OF APPOINTMENTS FOR A DAY
+	appointmentData.push(<Appointment key="last" time="5pm" />) 
+
+	// RENDER THE COMPONENT
   return (
     <main className="layout">
       <section className="sidebar">
@@ -35,9 +47,9 @@ export default function Application(props) {
 				<hr className="sidebar__separator sidebar--centered" />
 				<nav className="sidebar__menu">
 					<DayList
-					  days={days}
-					  day={day}
-					  setDay={day => setDay(day)}
+					  days={state.days}
+					  day={state.day}
+					  setDay={setDay}
 					/>
 				</nav>
 				
@@ -48,7 +60,7 @@ export default function Application(props) {
 				/>
     </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        { appointmentData }
       </section>
     </main>
   );
