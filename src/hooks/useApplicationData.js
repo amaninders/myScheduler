@@ -13,7 +13,7 @@ export default function useApplicationDate(params) {
 	const setDay = day => {setState({...state, day})}
 
 	useEffect(() => {		 		 
-		const getDays = axios.get('http://localhost:8001/api/days');
+		const getDays 				= axios.get('http://localhost:8001/api/days');
 		const getAppointments = axios.get('http://localhost:8001/api/appointments');
 		const getInterviewers = axios.get('http://localhost:8001/api/interviewers');
 		 
@@ -26,7 +26,7 @@ export default function useApplicationDate(params) {
 					interviewers: responses[2].data
 				}))
 			})).catch(err => console.log(err));			
-	},[])
+	},[state.appointments])
 
 		// BOOK INTERVIEW
 		async function bookInterview(id, interview) {

@@ -14,7 +14,6 @@ export default function Application(props) {
 		deleteBooking
 	} = useApplicationData()
 
-	console.log(state.spots)
 	const dailyAppointments = getAppointmentsForDay(state, state.day);
 	const dailyInterviewers = getInterviewersForDay(state, state.day);
 	const appointmentData = dailyAppointments.map(appointment => {

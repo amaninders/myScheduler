@@ -20,6 +20,7 @@ function Appointment(props) {
 	const SAVING			 = "SAVING"
 	const DELETING		 = "DELETING"
 	const ERROR_SAVE	 = "ERROR_SAVE"
+	const ERROR_SAVE2  = "ERROR_SAVE2"
 	const ERROR_DELETE = "ERROR_DELETE"
 
 
@@ -33,8 +34,10 @@ function Appointment(props) {
 			student: name,
 			interviewer
 		};
-		transition(SAVING);		
-		props.bookInterview(props.id, interview)
+
+		if (name && interviewer) {
+			transition(SAVING);		
+			props.bookInterview(props.id, interview)
 			.then(res => {
 				if (res.result) {
 					transition(SHOW);
@@ -42,6 +45,9 @@ function Appointment(props) {
 				}
 				transition(ERROR_SAVE, true)
 			});
+			return;
+		}
+		transition(ERROR_SAVE2)
 	}
 
 	function onDelete() {
@@ -110,6 +116,12 @@ function Appointment(props) {
 			{mode === ERROR_SAVE && (
 			  <Error 
 					message="Sorry! We were unable to save the changes"
+					onClose={() => transition(back)} 
+				/>
+			)}
+			{mode === ERROR_SAVE2 && (
+			  <Error 
+					message="Please check the student name and interviewer selected"
 					onClose={() => transition(back)} 
 				/>
 			)}
