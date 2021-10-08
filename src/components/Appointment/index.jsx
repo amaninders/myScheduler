@@ -126,7 +126,7 @@ function Appointment(props) {
 			{mode === ERROR_DELETE && (
 			  <Error 
 					message="We were unable to delete the appointment"
-					onClose={() => transition(back)} 
+					onClose={() => transition(back, true)} 
 				/>
 			)}
 		</article>
