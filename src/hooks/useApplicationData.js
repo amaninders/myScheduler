@@ -1,5 +1,8 @@
+import { getStateWithUpdatedData } from "helpers/selectors";
+
 const { default: axios } = require("axios");
 const { useState, useEffect } = require("react");
+
 
 export default function useApplicationData(params) {
 	
@@ -36,7 +39,7 @@ export default function useApplicationData(params) {
 		// GET THE APPOINTMENT
 		const appointment = {
 			...state.appointments[id],
-			interview: { ...interview || null }
+			interview: (interview ? { ...interview } : null)
 		};
 
 		// UPDATE THE APPOINTMENTS OBJECT WITH NEW APPOINTMENT
@@ -45,25 +48,21 @@ export default function useApplicationData(params) {
 			[id]: appointment
 		};
 
-		setState(prev => ({ ...prev,	appointments}))
-
 		// MAKE REQUEST TO UPDATE THE APPOINTMENTS IN THE DB
-
 		const URL     = `http://localhost:8001/api/appointments/${id}`
 		const body    = {interview: interview}
 		const action  = (method === 'put' ? axios.put(URL, body) : axios.delete(URL))
-		const retrieve = axios.get('http://localhost:8001/api/days')
 			
-		let result = axios.all([action, retrieve])
-			.then(axios.spread((...responses) => {					
-						const days = (responses[1].data)
-						console.log(days)
-						setState(prev => ({ ...prev,	appointments, days }))
-						return { result: 'success', err: null } 
-				}))
+		let result = action.then(() => {
+					setState(prev => {
+						const newData = getStateWithUpdatedData( prev,	appointments )
+						return ({ ...newData })
+					})
+					return { result: 'success', err: null } 
+				})
 				.catch(err => {
 					return { result: null, err: err }
-				})
+				});
 
 		return result;
 	}
