@@ -22,4 +22,4 @@ Interview Scheduler is a simple, one page app for booking appointments and check
 
 ## Final Project:
 
-!["Preview of the App"](#)
+!["Preview of the App"](https://github.com/amaninders/myScheduler/blob/master/public/docs/app.gif?raw=true)
