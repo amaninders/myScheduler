@@ -1,23 +1,25 @@
 # Interview Scheduler
+Interview Scheduler is a simple, one page app for booking appointments and checking availability
 
-## Setup
+## Getting Started
 
-Install dependencies with `npm install`.
+1. Install dependencies with `npm install`.
+2. Runn Webpack Development Server
 
-## Running Webpack Development Server
+	```sh
+	npm start
+	```
+3. Runn Jest Test Framework
 
-```sh
-npm start
-```
+	```sh
+	npm test
+	```
+4. Runn Storybook Visual Testbed
 
-## Running Jest Test Framework
+	```sh
+	npm run storybook
+	```
 
-```sh
-npm test
-```
+## Final Project:
 
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+!["Preview of the App"](#)
