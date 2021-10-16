@@ -114,7 +114,7 @@ function Appointment(props) {
 			{mode === ERROR_SAVE && (
 			  <Error 
 					message="Sorry! We were unable to save the changes"
-					onClose={() => transition(back)} 
+					onClose={() => transition(CREATE)} 
 				/>
 			)}
 			{mode === ERROR_SAVE2 && (
