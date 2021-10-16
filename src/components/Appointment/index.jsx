@@ -41,7 +41,7 @@ function Appointment(props) {
 					transition(SHOW);
 					return;
 				}
-				transition(ERROR_SAVE, true)
+				transition(ERROR_SAVE)
 			});
 			return;
 		}
@@ -85,7 +85,7 @@ function Appointment(props) {
 			  <Form
 					interviewers={props.interviewers}
 					onCancel={() => transition(EMPTY)}
-					onSave={(name, interviwer) => onSave(name,interviwer)}
+					onSave={(name, interviwer, action) => onSave(name,interviwer, action)}
 			  />
 			)}
 			{mode === SAVING && (
@@ -108,13 +108,13 @@ function Appointment(props) {
 				interviewer={props.interview.interviewer.id}
 				interviewers={props.interviewers}
 				onCancel={() => transition(SHOW)}
-				onSave={(name, interviwer) => onSave(name,interviwer)}
+				onSave={(name, interviwer, action) => onSave(name,interviwer, action)}
 			/>
 			)}
 			{mode === ERROR_SAVE && (
 			  <Error 
 					message="Sorry! We were unable to save the changes"
-					onClose={() => transition(CREATE)} 
+					onClose={() => transition(back)} 
 				/>
 			)}
 			{mode === ERROR_SAVE2 && (
